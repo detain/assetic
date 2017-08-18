@@ -42,6 +42,7 @@ before_script:
     - composer update $COMPOSER_FLAGS
 
     # node deps
+    - npm update -g
     - npm install uglify-js@1 && mkdir -p vendor/uglifyjs && mv node_modules vendor/uglifyjs
     - npm install
     - export NODE_VERSION=$(node -v | egrep -o "[0-9]+.[0-9]+.[0-9]+")
@@ -50,24 +51,24 @@ before_script:
 
     # java deps
     - mkdir -p vendor/java
-    - wget http://dl.google.com/closure-compiler/compiler-latest.zip && unzip compiler-latest.zip -d vendor/java/compiler && mv vendor/java/compiler/closure-compiler-*.jar vendor/java/compiler/compiler.jar
     - export CLOSURE_JAR=vendor/java/compiler/compiler.jar
-    - wget https://github.com/google/closure-stylesheets/releases/download/v1.4.0/closure-stylesheets.jar && mv closure-stylesheets.jar vendor/java
     - export GSS_JAR=vendor/java/closure-stylesheets.jar
-    - wget https://github.com/packagist/cssembed-bin/raw/master/bin/cssembed.jar -P vendor/java
     - export CSSEMBED_JAR=vendor/java/cssembed.jar
-    - wget http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip && unzip yuicompressor-2.4.7.zip -d vendor/java
     - export YUI_COMPRESSOR_JAR=vendor/java/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar
+    - if [ ! -e $CLOSURE_JAR ]; then wget http://dl.google.com/closure-compiler/compiler-latest.zip && unzip compiler-latest.zip -d vendor/java/compiler && mv vendor/java/compiler/closure-compiler-*.jar vendor/java/compiler/compiler.jar; fi
+    - if [ ! -e $GSS_JAR ]; then wget https://github.com/google/closure-stylesheets/releases/download/v1.4.0/closure-stylesheets.jar -P vendor/java; fi
+    - if [ ! -e $CSSEMBED_JAR ]; then wget https://github.com/packagist/cssembed-bin/raw/master/bin/cssembed.jar -P vendor/java; fi
+    - if [ ! -e $YUI_COMPRESSOR_JAR ]; then wget http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip && unzip yuicompressor-2.4.7.zip -d vendor/java; fi
 
     # ruby deps
     - bundle install
 
     # other deps
 
-    - wget -q http://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/dartsdk-linux-x64-release.zip && unzip dartsdk-linux-x64-release.zip && mv dart-sdk vendor
     - export DART_BIN=vendor/dart-sdk/bin/dart2js
+    - if [ ! -e $DART_BIN ]; then wget -q http://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/dartsdk-linux-x64-release.zip && unzip dartsdk-linux-x64-release.zip && mv dart-sdk vendor; fi
 
-    - wget -q http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz && tar -xzf pngout-20130221-linux.tar.gz && mv pngout-20130221-linux vendor
     - export PNGOUT_BIN=vendor/pngout-20130221-linux/x86_64/pngout
+    - if [ ! -e $PNGOUT_BIN ]; then wget -q http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz && tar -xzf pngout-20130221-linux.tar.gz && mv pngout-20130221-linux vendor; fi
 
 script: ./bin/phpunit -v
