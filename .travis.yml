@@ -38,8 +38,8 @@ before_script:
     - phpenv config-rm xdebug.ini
     - phpenv rehash
     # os deps
-    - travis_retry apt-get update
-    - travis_retry apt-get dist-upgrade -y
+    - travis_retry sudo apt-get update
+    - travis_retry sudo apt-get dist-upgrade -y
     # php deps
     - travis_retry composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
