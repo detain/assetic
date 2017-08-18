@@ -1,12 +1,5 @@
 language: php
 
-addons:
-    apt:
-        packages:
-            - jpegoptim
-            - libjpeg-progs
-            - optipng
-
 sudo: false
 
 cache:
@@ -39,6 +32,7 @@ before_script:
     # os deps
     - apt-get update
     - apt-get dist-upgrade -y
+    - apt-get install -y jpegoptim libjpeg-progs optipng
     - apt-get autoremove -y
 
     # php deps
