@@ -38,7 +38,7 @@ matrix:
 before_script:
     # os deps
     - apt-get update
-    - apt-get dist-upgrade -y -f
+    - apt-get dist-upgrade -y
     - apt-get autoremove -y
 
     # php deps
