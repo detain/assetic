@@ -36,9 +36,9 @@ matrix:
           env: DEPENDENCIES=dev
 before_script:
     # php deps
-    - travis_retry sudo phpenv config-rm xdebug.ini
-    - travis_retry sudo phpenv rehash
-    - travis_retry sudo composer self-update
+    - travis_retry phpenv config-rm xdebug.ini
+    - travis_retry phpenv rehash
+    - travis_retry composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
     - travis_retry composer update $COMPOSER_FLAGS
     # node deps
