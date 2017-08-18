@@ -36,6 +36,11 @@ matrix:
           env: DEPENDENCIES=dev
 
 before_script:
+    # os deps
+    - apt-get update
+    - apt-get dist-upgrade -y -f
+    - apt-get autoremove -y
+
     # php deps
     - composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
