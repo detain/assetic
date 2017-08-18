@@ -8,8 +8,12 @@ addons:
         - libjpeg-progs
         - optipng
 cache:
+    timeout: 86400
+    bundler: true
     directories:
         - $HOME/.composer/cache/files
+        - $HOME/.cache/pip
+        - $HOME/.cache/yarn
         - $HOME/.npm
         - tmp/pear/download/
         - vendor/
