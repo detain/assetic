@@ -1,6 +1,6 @@
 language: php
 
-sudo: false
+sudo: true
 
 cache:
     directories:
@@ -30,18 +30,17 @@ matrix:
 
 before_script:
     # os deps
-    - apt-get update
-    - apt-get dist-upgrade -y
-    - apt-get install -y jpegoptim libjpeg-progs optipng
-    - apt-get autoremove -y
+    - sudo apt-get update
+    - sudo apt-get dist-upgrade -y
+    - sudo apt-get install -y jpegoptim libjpeg-progs optipng
 
     # php deps
-    - composer self-update
+    - sudo composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
     - composer update $COMPOSER_FLAGS
 
     # node deps
-    - npm update -g
+    - sudo npm update -g
     - npm install uglify-js@1 && mkdir -p vendor/uglifyjs && mv node_modules vendor/uglifyjs
     - npm install
     - export NODE_VERSION=$(node -v | egrep -o "[0-9]+.[0-9]+.[0-9]+")
