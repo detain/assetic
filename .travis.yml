@@ -35,17 +35,19 @@ matrix:
         - php: 5.6
           env: DEPENDENCIES=dev
 before_script:
+    - phpenv config-rm xdebug.ini
+    - phpenv rehash
     # os deps
-    - apt-get update
-    - apt-get dist-upgrade -y
+    - travis_retry apt-get update
+    - travis_retry apt-get dist-upgrade -y
     # php deps
-    - composer self-update
+    - travis_retry composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
-    - composer update $COMPOSER_FLAGS
+    - travis_retry composer update $COMPOSER_FLAGS
     # node deps
-    - npm update -g
-    - npm install uglify-js@1 && mkdir -p vendor/uglifyjs && mv node_modules vendor/uglifyjs
-    - npm install
+    - travis_retry npm update -g
+    - travis_retry npm install uglify-js@1 && mkdir -p vendor/uglifyjs && mv node_modules vendor/uglifyjs
+    - travis_retry npm install
     - export NODE_VERSION=$(node -v | egrep -o "[0-9]+.[0-9]+.[0-9]+")
     - export UGLIFYJS_BIN=vendor/uglifyjs/node_modules/uglify-js/bin/uglifyjs
     - if [[ "$NODE_VERSION" =~ ^0.[0-9].[0-9]+$|^0.10.[0-9]+$|^0.11.[0-9]$|^0.11.1[0-2]$ ]]; then export AUTOPREFIXER_BIN=node_modules/.bin/autoprefixer; else export AUTOPREFIXER_BIN=node_modules/.bin/autoprefixer-cli; fi;
@@ -60,7 +62,7 @@ before_script:
     - if [ ! -e $CSSEMBED_JAR ]; then wget https://github.com/packagist/cssembed-bin/raw/master/bin/cssembed.jar -P vendor/java; fi
     - if [ ! -e $YUI_COMPRESSOR_JAR ]; then wget http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip && unzip yuicompressor-2.4.7.zip -d vendor/java; fi
     # ruby deps
-    - bundle install
+    - travis_retry bundle install
     # other deps
     - export DART_BIN=vendor/dart-sdk/bin/dart2js
     - export PNGOUT_BIN=vendor/pngout-20130221-linux/x86_64/pngout
