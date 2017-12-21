@@ -1,15 +1,15 @@
 {
-    "name": "kriswallsmith/assetic",
-    "description": "Asset Management for PHP",
+    "name": "detain/assetic",
+    "description": "Asset Management for PHP updated from kriswall/smith/assetic",
     "keywords": [ "assets", "compression", "minification" ],
     "homepage": "https://github.com/kriswallsmith/assetic",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Kris Wallsmith",
-            "email": "kris.wallsmith@gmail.com",
-            "homepage": "http://kriswallsmith.net/"
+            "name": "Joe Huss",
+            "email": "detain@interserver.net",
+            "homepage": "https://www.interserver.net/r/2773"
         }
     ],
     "require": {
