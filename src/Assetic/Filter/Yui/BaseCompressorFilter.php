@@ -29,6 +29,7 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
     private $charset;
     private $lineBreak;
     private $stackSize;
+    private $heapSize;
 
     public function __construct($jarPath, $javaPath = '/usr/bin/java')
     {
@@ -51,6 +52,11 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
         $this->stackSize = $stackSize;
     }
 
+    public function setHeapSize($heapSize)
+    {
+        $this->heapSize = $heapSize;
+    }
+
     public function filterLoad(AssetInterface $asset)
     {
     }
@@ -70,6 +76,10 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
 
         if (null !== $this->stackSize) {
             $pb->add('-Xss'.$this->stackSize);
+        }
+
+        if (null !== $this->heapSize) {
+            $pb->add('-Xmx'.$this->heapSize);
         }
 
         $pb->add('-jar')->add($this->jarPath);
