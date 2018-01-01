@@ -79,11 +79,11 @@ EOF;
         $more = '';
 
         foreach ($this->includeDirs as $directory) {
-            $more .= 'options[:load_path] << '.var_export($directory, true)."\n";
+            $more .= 'options[:load_path] << '.var_export($directory, true).PHP_EOL;
         }
 
         if (null !== $this->assetRoot) {
-            $more .= 'options[:asset_root] = '.var_export($this->assetRoot, true)."\n";
+            $more .= 'options[:asset_root] = '.var_export($this->assetRoot, true).PHP_EOL;
         }
 
         if ($more) {
