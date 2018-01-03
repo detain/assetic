@@ -55,7 +55,7 @@ ROOLE;
         $this->filter->filterLoad($asset);
 
         $content = $asset->getContent();
-        $this->assertNotContains('$margin', $content);
+        $this->assertNotContains('{$margin}', $content);
         $this->assertContains('margin: 30px;', $content);
     }
 }

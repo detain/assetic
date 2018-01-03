@@ -106,7 +106,7 @@ class AsseticNode extends \Twig_Node
 
             foreach ($vars as $var) {
                 $compiler
-                    ->write("if (!isset(\$context['assetic']['vars']['$var'])) {\n")
+                    ->write("if (!isset(\$context['assetic']['vars']['{$var}'])) {\n")
                     ->indent()
                     ->write("throw new \RuntimeException(sprintf('The asset \"".$name."\" expected variable \"".$var."\" to be set, but got only these vars: %s. Did you set-up a value supplier?', isset(\$context['assetic']['vars']) && \$context['assetic']['vars'] ? implode(', ', \$context['assetic']['vars']) : '# none #'));\n")
                     ->outdent()
@@ -154,7 +154,7 @@ class AsseticNode extends \Twig_Node
 
             $compiler
                 ->string("{".$var."}")
-                ->raw(" => \$context['assetic']['vars']['$var']")
+                ->raw(" => \$context['assetic']['vars']['{$var}']")
             ;
         }
 
